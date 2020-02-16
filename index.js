@@ -15,9 +15,6 @@ const Blog = mongoose.model('Blog', blogSchema)
 
 const password = process.env.blogPassword
 
-console.log(process.argv)
-console.log('asd', password)
-
 const mongoUrl = `mongodb+srv://sofia:${password}@cluster0-zqlrn.mongodb.net/bloglist?retryWrites=true&w=majority`
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true})
 
