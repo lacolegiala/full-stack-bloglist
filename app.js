@@ -4,21 +4,20 @@ const cors = require('cors')
 const blogRouter = require('./controllers/blogs')
 const mongoose = require('mongoose')
 
-// logger.info('connecting to', config.MONGODB_URI)
-
-// mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => {
-//     logger.info('connected to MongoDB')
-//   })
-//   .catch((error) => {
-//     logger.error('error connection to MongoDB:', error.message)
-//   })
-
 const password = process.env.blogPassword
+console.log(process.env.blogPassword)
 
-const mongoUrl = `mongodb+srv://sofia:${password}@cluster0-zqlrn.mongodb.net/bloglist?retryWrites=true&w=majority`
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true})
+const mongoUrl = `mongodb+srv://@cluster0-zqlrn.mongodb.net/bloglist?retryWrites=true&w=majority`
+mongoose.connect(mongoUrl, { user: 'sofia', pass: process.env.blogPassword, useNewUrlParser: true, useUnifiedTopology: true})
+.then(() => { console.log('KAIKEN PITÄISI OLLA KUNNOSSA')},
+  err => { console.log('ERROR RETURNED', err) }
+)
+.catch(err => {
+  console.error(`App starting error: pw ${process.env.blogPassword}`, err.stack);
+  process.exit(1);
+})
 
+console.log('APP USE TULOSSA')
 
 app.use(cors())
 app.use(express.json())
