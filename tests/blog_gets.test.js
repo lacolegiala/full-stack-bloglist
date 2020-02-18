@@ -31,17 +31,13 @@ beforeEach(async () => {
 })
 
 describe('get blog data', () => {
-
   test('app returns the correct number of json blogs', async () => {
     const response = await api
       .get('/api/blogs').expect(200)
       .expect('Content-Type', /application\/json/);
-  
-      const res = response.body;
-      expect(res.length).toBe(initialBlogs.length)
-      
+    const res = response.body;
+    expect(res.length).toBe(initialBlogs.length)
   })
-  
 })
 
 describe('post blogs', () => {
