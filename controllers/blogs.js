@@ -8,17 +8,6 @@ blogRouter.get('', async (request, response) => {
   response.json(blogs)
 })
 
-// blogRouter.post('', (request, response) => {
-//   const blog = new Blog(request.body)
-
-//   const user = await User.findById(body.userId)
-
-//   blog
-//     .save()
-//     .then(result => {
-//       response.status(201).json(result)
-//     })
-// })
 
 blogRouter.post('/', async (request, response, next) => {
   const body = request.body
