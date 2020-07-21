@@ -21,7 +21,7 @@ mongoose.connect(mongoUrl, {
 	err => { console.log('ERROR RETURNED', err) }
 	)
 	.catch(err => {
-		console.error(`App starting error: pw ${process.env.blogPassword}`, err.stack);
+		console.error(`App starting error: pw ${process.env.blogPassword}`, err.stack)
 		process.exit(1)
 	})
 
