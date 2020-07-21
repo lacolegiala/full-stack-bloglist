@@ -5,6 +5,7 @@ const blogRouter = require('./controllers/blogs')
 const userRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const mongoose = require('mongoose')
+require('dotenv').config()
 
 
 const mongoUrl = `mongodb+srv://@cluster0-zqlrn.mongodb.net/bloglist?retryWrites=true&w=majority`

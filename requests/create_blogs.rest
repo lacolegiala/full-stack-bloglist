@@ -1,11 +1,11 @@
-POST http://localhost:3003/api/blogs
+POST http://localhost:3001/api/blogs
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ha2tzIiwiaWQiOiI1ZTU0MDA4OTI1ZGUyOTQzMjg3M2Y3ZmEiLCJpYXQiOjE1ODM0MTE4OTN9.lU1wbuBZSLqfDh63E7jcrTFfNZ9IASNHg6IGiK3cKJ8
 
 {
-  "title": "Does this work blog",
-  "author": "Me",
-  "url": "www.nakkeblog.com",
+  "title": "Oh no",
+  "author": "Hell Yeah",
+  "url": "www.ohyeah.com",
   "likes": 300563,
-  "userId": "5e529e2efb8ceb36a81b7f16"
+  "userId": "5e529e2efb8ceb36a81b7f19"
 }
