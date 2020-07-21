@@ -29,6 +29,8 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.0",
+    "eslint": "^7.5.0",
+    "eslint-plugin-react": "^7.20.3",
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
