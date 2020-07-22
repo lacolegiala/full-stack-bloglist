@@ -87,11 +87,11 @@ describe('post blogs', () => {
     await api
       .post('/api/blogs')
       .send(newBlog)
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', /application\/json/)
   
     const blogsAtEnd = await blogsInDb()
-    expect(blogsAtEnd.length).toBe(initialBlogs.length + 1)
+    expect(blogsAtEnd).toHaveLength(initialBlogs.length + 1)
 
     const titles = blogsAtEnd.map(blog => blog.title)
 
