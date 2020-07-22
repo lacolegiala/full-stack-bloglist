@@ -19,7 +19,7 @@ const getTokenFrom = request => {
 }
 
 
-blogRouter.post('/', async (request, response) => {
+blogRouter.post('/', async (request, response, next) => {
 	const body = request.body
 
 	const token = getTokenFrom(request)
@@ -41,11 +41,16 @@ blogRouter.post('/', async (request, response) => {
 		user: user._id
 	})
 
-	const savedBlog = await blog.save()
-	user.blogs = user.blogs.concat(savedBlog._id)
-	await user.save()
+	try {
+		const savedBlog = await blog.save()
+		user.blogs = user.blogs.concat(savedBlog._id)
+		await user.save()
 
-	response.json(savedBlog.toJSON())
+		response.json(savedBlog.toJSON())
+	}
+	catch(exception) {
+		next(exception)
+	}
 })
 
 blogRouter.get('/:id', async (request, response) => {
