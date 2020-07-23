@@ -6,6 +6,7 @@ const userRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
+const logger = require('./utils/logger')
 require('dotenv').config()
 
 
@@ -16,12 +17,12 @@ mongoose.connect(config.MONGODB_URI, {
 	useUnifiedTopology: true
 })
 	.then(() => {
-		console.log('KAIKEN PITÄISI OLLA KUNNOSSA')
+		logger.info('KAIKEN PITÄISI OLLA KUNNOSSA')
 	},
-	err => { console.log('ERROR RETURNED', err) }
+	err => { logger.error('ERROR RETURNED', err) }
 	)
 	.catch(err => {
-		console.error(`App starting error: pw ${process.env.blogPassword}`, err.stack)
+		logger.error(`App starting error: pw ${process.env.blogPassword}`, err.stack)
 		process.exit(1)
 	})
 
