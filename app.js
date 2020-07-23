@@ -5,11 +5,11 @@ const blogRouter = require('./controllers/blogs')
 const userRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const mongoose = require('mongoose')
+const config = require('./utils/config')
 require('dotenv').config()
 
 
-const mongoUrl = 'mongodb+srv://@cluster0-zqlrn.mongodb.net/bloglist?retryWrites=true&w=majority'
-mongoose.connect(mongoUrl, {
+mongoose.connect(config.MONGODB_URI, {
 	user: 'sofia',
 	pass: process.env.blogPassword,
 	useNewUrlParser: true,
