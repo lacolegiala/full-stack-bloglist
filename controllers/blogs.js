@@ -43,16 +43,11 @@ blogRouter.post('/', async (request, response, next) => {
 		user: user._id
 	})
 
-	try {
-		const savedBlog = await blog.save()
-		user.blogs = user.blogs.concat(savedBlog._id)
-		await user.save()
+	const savedBlog = await blog.save()
+	user.blogs = user.blogs.concat(savedBlog._id)
+	await user.save()
 
-		response.json(savedBlog.toJSON())
-	}
-	catch(exception) {
-		next(exception)
-	}
+	response.json(savedBlog.toJSON())
 })
 
 blogRouter.get('/:id', async (request, response) => {
