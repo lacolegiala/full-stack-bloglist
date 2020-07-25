@@ -1,48 +1,16 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
-// const helper = require('./test_helper').default
+const helper = require('./test_helper')
 
 const api = supertest(app)
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
-const initialBlogs = [
-  {
-    title: "MyBlog",
-    author: "Me",
-    url: "myblog.com",
-    likes: 123
-  },
-  {
-    title: "YourBlog",
-    author: "You",
-    url: "yourblog.com",
-    likes: 128
-  }
-]
-
-const nonExistingId = async () => {
-  const blog = new Blog({ title: 'willremovethissoon' })
-  await blog.save()
-  await blog.remove()
-
-  return blog._id.toString()
-}
-
-const blogsInDb = async () => {
-  const blogs = await Blog.find({})
-  return blogs.map(blog => blog.toJSON())
-}
-
-const usersInDb = async () => {
-  const users = await User.find({})
-  return users.map(user => user.toJSON())
-}
 
 beforeEach(async () => {
   await Blog.deleteMany({})
-  await Blog.insertMany(initialBlogs)
+  await Blog.insertMany(helper.initialBlogs)
 })
 
 describe('get blog data', () => {
@@ -51,11 +19,11 @@ describe('get blog data', () => {
       .get('/api/blogs').expect(200)
       .expect('Content-Type', /application\/json/);
     const res = response.body;
-    expect(res.length).toBe(initialBlogs.length)
+    expect(res.length).toBe(helper.initialBlogs.length)
   })
 
   test('a specific blog can be viewed', async () => {
-    const blogsAtStart = await blogsInDb()
+    const blogsAtStart = await helper.blogsInDb()
   
     const blogToView = blogsAtStart[0]
   
@@ -84,8 +52,8 @@ describe('post blogs', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
   
-    const blogsAtEnd = await blogsInDb()
-    expect(blogsAtEnd).toHaveLength(initialBlogs.length + 1)
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
 
     const titles = blogsAtEnd.map(blog => blog.title)
 
@@ -96,17 +64,17 @@ describe('post blogs', () => {
 
 describe('delete blogs', () => {
   test('a blog can be deleted', async () => {
-    const blogsAtStart = await blogsInDb()
+    const blogsAtStart = await helper.blogsInDb()
     const blogToDelete = blogsAtStart[0]
 
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
       .expect(204)
 
-    const blogsAtEnd = await blogsInDb()
+    const blogsAtEnd = await helper.blogsInDb()
 
     expect(blogsAtEnd.length).toBe(
-      initialBlogs.length - 1
+      helper.initialBlogs.length - 1
     )
 
     const titles = blogsAtEnd.map(blog => blog.title)
@@ -123,7 +91,7 @@ describe('when there is initially one user at db', () => {
   })
 
   test('creation succeeds with a fresh username', async () => {
-    const usersAtStart = await usersInDb()
+    const usersAtStart = await helper.usersInDb()
 
     const newUser = {
       username: 'mluukkai',
@@ -137,7 +105,7 @@ describe('when there is initially one user at db', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
-    const usersAtEnd = await usersInDb()
+    const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd.length).toBe(usersAtStart.length + 1)
 
     const usernames = usersAtEnd.map(user => user.username)
