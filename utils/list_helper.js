@@ -10,7 +10,18 @@ const totalLikes = (blogs) => {
   return total
 }
 
+const mostLikes = (blogs) => {
+  let most = 0
+  for (let i = 0; i < blogs.length; i++) {
+    if (blogs[i].likes > most) {
+      most = blogs[i].likes
+    }
+  }
+  return most
+}
+
 module.exports = {
   dummy,
-  totalLikes
+  totalLikes,
+  mostLikes
 }
