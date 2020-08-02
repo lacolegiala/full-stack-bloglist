@@ -2,10 +2,12 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const helper = require('./test_helper')
+const bcrypt = require('bcryptjs')
 
 const api = supertest(app)
 const Blog = require('../models/blog')
 const User = require('../models/user')
+const { request } = require('../app')
 
 
 beforeEach(async () => {
@@ -15,7 +17,30 @@ beforeEach(async () => {
 
 
 describe('post blogs', () => {
-  test('a valid blog can be added ', async () => {
+    
+    test('a valid blog can be added ', async () => {
+    await User.deleteMany({})
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash('sekret', saltRounds)
+    const user = new User({ username: 'root', name: 'nakke03', passwordHash })
+    await user.save()
+
+    const userData = {
+      username: 'root',
+      password: 'sekret'
+    }
+
+    let thisToken = null
+
+    await api
+      .post('/api/login')
+      .send(userData)
+      .expect(200)
+      .expect(response => {
+        thisToken = response.body.token
+      })
+      
+
     const newBlog = {
       title: "OurBlog",
       author: "Us",
@@ -25,6 +50,7 @@ describe('post blogs', () => {
 
     await api
       .post('/api/blogs')
+      .set('Authorization', 'bearer ' + thisToken)
       .send(newBlog)
       .expect(200)
       .expect('Content-Type', /application\/json/)
