@@ -9,7 +9,6 @@ const mongoose = require('mongoose')
 const config = require('./utils/config')
 const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
-require('dotenv').config()
 
 
 mongoose.connect(config.MONGODB_URI, {
@@ -24,7 +23,7 @@ mongoose.connect(config.MONGODB_URI, {
 	err => { logger.error('ERROR RETURNED', err) }
 	)
 	.catch(err => {
-		logger.error(`App starting error: pw ${process.env.blogPassword}`, err.stack)
+		logger.error(`App starting error`, err.stack)
 		process.exit(1)
 	})
 
