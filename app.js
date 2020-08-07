@@ -13,7 +13,7 @@ const middleware = require('./utils/middleware')
 
 mongoose.connect(config.MONGODB_URI, {
 	user: 'sofia',
-	pass: process.env.blogPassword,
+	pass: process.env.BLOG_PASSWORD,
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 })
