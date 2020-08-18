@@ -21,7 +21,7 @@ blogRouter.get('/', async (request, response) => {
 
 
 
-blogRouter.post('/', async (request, response, next) => {
+blogRouter.post('/', async (request, response) => {
 	const body = request.body
 
 	const token = getTokenFrom(request)
@@ -62,6 +62,26 @@ blogRouter.get('/:id', async (request, response) => {
 blogRouter.delete('/:id', async (request, response) => {
 	await Blog.findByIdAndRemove(request.params.id)
 	response.status(204).end()
+})
+
+blogRouter.put('/:id', async (request, response) => {
+	const body = request.body
+	if (body.title === undefined || body.author === undefined || body.likes === undefined) {
+		return response.status(400).json('Data missing')
+	}
+
+
+	const blog = {
+		title: body.title,
+		author: body.author,
+		likes: body.likes,
+		url: body.url
+	}
+
+	Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+    .then(updatedBlog => {
+      response.json(updatedBlog)
+    })
 })
 
 module.exports = blogRouter

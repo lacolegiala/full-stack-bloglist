@@ -15,7 +15,8 @@ mongoose.connect(config.MONGODB_URI, {
 	user: 'sofia',
 	pass: process.env.BLOG_PASSWORD,
 	useNewUrlParser: true,
-	useUnifiedTopology: true
+	useUnifiedTopology: true,
+	useFindAndModify: false
 })
 	.then(() => {
 		logger.info('KAIKEN PITÄISI OLLA KUNNOSSA')
