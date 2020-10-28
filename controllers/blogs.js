@@ -92,18 +92,14 @@ blogRouter.post('/:id/comments', async (request, response) => {
 		return response.status(400).json('Data missing')
 	}
 
-	const blog = await Blog.findById(request.params.id)
-
 	const comment = new Comment({
 		text: body.text,
-		blog: blog._id
+		blog: request.params.id
 	})
 
 	const savedComment = await comment.save()
 
-	const newComment = await Comment.findById(savedComment._id).populate('blog')
-
-	response.json(newComment.toJSON())
+	response.json(savedComment.toJSON())
 	
 })
 
