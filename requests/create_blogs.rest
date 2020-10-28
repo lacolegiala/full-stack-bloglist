@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1ZjE4NjY3MzdlNTU4YzY5ODVjYWE1NzMiLCJpYXQiOjE1OTU2ODU0NzJ9._ma9io1pd8Vl0q-1Dmeve05A_uFNU1US2hxURQ8wHp0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ha2tlIiwiaWQiOiI1ZjFjMjFhMmIyNzkwMDkzOGU2ODMwNDkiLCJpYXQiOjE2MDM4NzIwMTF9.tcaQC3_9-PjrTfRvdKpQRT0neyu2PkYcTOSyBFjCOYc
 
 {
-  "title": "Oh no",
+  "title": "hihhiii",
   "author": "Hell Yeah",
   "url": "www.ohyeah.com",
   "likes": 300563
