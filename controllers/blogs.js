@@ -107,5 +107,12 @@ blogRouter.post('/:id/comments', async (request, response) => {
 	
 })
 
+blogRouter.get('/:id/comments', async (request, response) => {
+	const comments = await Comment.find({blog: request.params.id})
+
+	response.json(comments.map(comment => comment.toJSON()))
+})
+
+
 	
 module.exports = blogRouter
